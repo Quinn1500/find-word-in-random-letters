@@ -4,11 +4,13 @@ public class GenerateRandom {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
-        // Ask the user for the word to be generated
-        System.out.print("Enter the word to be generated: ");
-        String targetWord = scanner.nextLine();
+        // Ask the user for the target word
+        System.out.print("Enter the target word: ");
+        String targetWord = scanner.nextLine().toLowerCase(); // Convert the input to lowercase for case-insensitivity
 
-        int iterations = 0;
+        StringBuilder generatedWord = new StringBuilder(); // Initialize an empty StringBuilder to store generated letters
+        int lettersGenerated = 0; // Initialize a counter for the number of letters generated
+
         // Infinite loop
         while (true) {
             int min = 1; // Minimum value of range
@@ -19,25 +21,18 @@ public class GenerateRandom {
 
             // Print corresponding letter based on the random number
             char letter = (char) ('a' + random_int - 1);
-            System.out.print(letter);
+            generatedWord.append(letter); // Append the generated letter to the generatedWord
+            lettersGenerated++; // Increment the counter for letters generated
             
-            // Increment the number of iterations
-            iterations++;
-
-            // Check if the generated letters match the target word
-            if (checkWord(targetWord, letter)) {
-                break; // Exit the loop if the word is generated
+            // Check if the generatedWord contains the targetWord
+            if (generatedWord.toString().contains(targetWord)) {
+                break; // Exit the loop if the target word is generated
             }
         }
 
-        // Display the number of iterations
-        System.out.println("\nIt took " + iterations + " letters to generate the word '" + targetWord + "'.");
+        System.out.println("Target word '" + targetWord + "' generated!");
+        System.out.println("It took " + lettersGenerated + " letters to form the target word.");
         
         scanner.close();
-    }
-
-    // Method to check if a letter completes the target word
-    public static boolean checkWord(String targetWord, char letter) {
-        return targetWord.indexOf(letter) != -1;
     }
 }

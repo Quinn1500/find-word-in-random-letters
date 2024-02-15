@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class GenerateRandom {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Ask the user for the word to be generated
+        System.out.print("Enter the word to be generated: ");
+        String targetWord = scanner.nextLine();
+
+        int iterations = 0;
+        // Infinite loop
+        while (true) {
+            int min = 1; // Minimum value of range
+            int max = 26; // Maximum value of range
+
+            // Generate random int value from min to max
+            int random_int = (int) (Math.random() * (max - min + 1) + min);
+
+            // Print corresponding letter based on the random number
+            char letter = (char) ('a' + random_int - 1);
+            System.out.print(letter);
+            
+            // Increment the number of iterations
+            iterations++;
+
+            // Check if the generated letters match the target word
+            if (checkWord(targetWord, letter)) {
+                break; // Exit the loop if the word is generated
+            }
+        }
+
+        // Display the number of iterations
+        System.out.println("\nIt took " + iterations + " letters to generate the word '" + targetWord + "'.");
+        
+        scanner.close();
+    }
+
+    // Method to check if a letter completes the target word
+    public static boolean checkWord(String targetWord, char letter) {
+        return targetWord.indexOf(letter) != -1;
+    }
+}
